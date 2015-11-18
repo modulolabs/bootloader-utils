@@ -88,14 +88,19 @@ def dumpHex(hexFileName) :
 #dumpHex(sys.argv[1])
 #erase()
 
-#burnHex('flash', sys.argv[1], trampoline=True)
-#burnHex('eeprom', sys.argv[2])
-#burnHex('verify', sys.argv[1], trampoline=True)
+if (sys.argv[1] == '-avr') :
+    burnHex('flash', sys.argv[2], trampoline=True)
+    burnHex('eeprom', sys.argv[3])
+    burnHex('verify', sys.argv[2], trampoline=True)
+elif (sys.argv[1] == '-arm') :
+    burnHex('flash', sys.argv[2])
+    burnHex('verify', sys.argv[2])
+elif (sys.argv[1] == '-dump') :
+    dumpHex(sys.argv[2])
+else :
+    print 'Must use either -avr or -arm'
 
-burnHex('flash', sys.argv[1], blockSize=16)
-burnHex('verify', sys.argv[1], blockSize=16)
-
-port.write("exit\n");
+#port.write("exit\n");
 
 time.sleep(1)
 doRead()
